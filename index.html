@@ -1,0 +1,624 @@
+<!DOCTYPEhtml>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
+<title>Dongdaemun Fashion Library</title>
+<!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Font - Inter --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"rel="stylesheet">
+<style>
+/* Custom styles and font application */
+body {
+font-family:'Inter','Malgun Gothic','맑은 고딕',sans-serif;
+/* 기본적으로 다크 테마 배경을 유지 */
+background-color:#0d0d0d;
+color:#f7f7f7;
+transition:background-color 0.3s;
+}
+/* Custom CSS to mimic the sleek, dark aesthetic of the inspiration site */
+.hero-section {
+background-image:url(https://i.ifh.cc/MpKAYS.gif);
+background-size:cover;
+background-position:center;
+height:100vh;
+position:relative;
+overflow:hidden;
+}
+.search-input {
+border:1px solid rgba(255,255,255,0.5);
+background-color:rgba(0,0,0,0.4);
+}
+.structure-background {
+background-image:url(https://i.ifh.cc/VdQ42P.jpg);
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+.product-item:hover .product-title {
+color:#ff7200;/* 핫 컬렉션 및 검색 결과 아이템 호버 색상 */
+}
+/* 헤더 스타일 동적 전환을 위한 기본 클래스 */
+.header-dark {
+background-color:transparent;
+position:fixed;
+color:white;
+}
+.header-light {
+background-color:white;
+position:sticky;
+top:0;
+color:#0d0d0d;
+box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+/* ====== 뷰 전환 모션 (페이드 인/아웃) ====== */
+.view-transition {
+transition:opacity 0.5s ease-in-out,visibility 0.5s linear;
+}
+/* 숨겨진 뷰 스타일 */
+.hidden-view {
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+position:absolute;
+width:100%;
+top:0;
+}
+/* 보이는 뷰 스타일 */
+.visible-view {
+opacity:1;
+visibility:visible;
+pointer-events:auto;
+position:relative;
+}
+</style>
+</head>
+<body class="selection:bg-neutral-600 selection:text-white">
+<!-- Header & Navigation --><header id="mainHeader"class="header-dark top-0 left-0 right-0 z-50 p-6 flex justify-between items-center transition-all duration-300">
+<!-- Logo (Left) --><div class="text-[10px] sm:text-xs font-light tracking-[0.2em] leading-tight cursor-pointer">
+<div id="logoDdm"class="text-neutral-400 header-text-color logo-ddl">DONGDAEMUN</div>
+<div id="logoFashion"class="text-white header-text-color logo-fashion">FASHION</div>
+<div id="logoLibrary"class="text-neutral-400 header-text-color logo-ddl">LIBRARY</div>
+</div>
+<!-- Menu (Right) - Hidden on mobile, shown on tablet/desktop --><nav class="hidden sm:flex space-x-8 text-sm font-medium tracking-wider">
+<!-- HOME 링크는 JavaScript로 처리하여 뷰를 전환합니다 --><a href="#"id="homeLink"class="hover:text-neutral-400 transition">HOME</a>
+<a href="#"class="hover:text-neutral-400 transition">COLLECTION</a>
+<a href="#"class="hover:text-neutral-400 transition">ABOUT US</a>
+<a href="#"class="hover:text-neutral-400 transition">RESERVATION</a>
+</nav>
+<!-- Mobile Menu Icon (Placeholder for the site's menu icon) --><div class="sm:hidden text-2xl cursor-pointer">&#9776;</div>
+</header>
+<!-- 1. 메인 홈 뷰 (기본 표시) -->
+<div id="homeView"class="view-transition visible-view">
+<!-- Hero Section: Full Screen Static Image & Content --><section class="hero-section flex flex-col justify-center items-center text-center p-4">
+<!-- Black Overlay (Kept for contrast) --><div class="bg-black/40 w-full h-full absolute top-0 left-0 z-10"></div>
+<div class="relative z-20 max-w-4xl mx-auto">
+<!-- Main Title --><h1 class="text-5xl sm:text-7xl md:text-9xl font-bold tracking-widest leading-none text-white">
+EXPLORE <span class="block mt-2 sm:mt-4">YOUR STYLE</span>
+</h1>
+<!-- Sub Text & Search Bar --><p class="mt-8 mb-6 text-base sm:text-lg text-neutral-300 font-light max-w-2xl0 mx-auto">
+새로운 나를 발견하는 탐험, 동대문 패션 도서관에서 무한한 스타일의 가능성을 찾아보세요.
+</p>
+<div class="flex justify-center mt-8">
+<div class="w-full max-w-md relative">
+<input
+type="text"
+id="searchInput"
+placeholder="자켓, 드레스, 디자이너 이름 등 검색"
+class="search-input w-full p-4 pl-6 pr-12 text-sm text-white rounded-full focus:outline-none focus:ring-1 focus:ring-white transition"
+>
+<button id="search-button"class="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-300 hover:text-white transition">
+<svg xmlns="http://www.w3.org/2000/svg"fill="none"viewBox="0 0 24 24"stroke-width="1.5"stroke="currentColor"class="w-6 h-6">
+<path stroke-linecap="round"stroke-linejoin="round"d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.197 5.197a7.5 7.5 0 0 0 10.607 10.607Z"/>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- HOT COLLECTION Section --><section class="py-20 md:py-32 px-4 md:px-12 bg-white">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-center text-2xl sm:text-3xl font-light tracking-widest text-neutral-800 mb-16">
+HOT COLLECTION
+</h2>
+<!-- Product Grid - 8 items --><div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+<!-- Item 1 (Jacket) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/b9BTsN.png"alt="헤리티지 울 헤링턴 자켓 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 3</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">헤리티지 울 헤링턴 자켓</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+박서인 · 2025년 · 610.9 전918
+</p>
+</div>
+</div>
+<!-- Item 2 (Coat) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/hzGsrr.png"alt="빈티지 레더 트렌치 코트 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 5</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">빈티지 레더 트렌치 코트</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+김나현 · 2023년 · 300.224 가88
+</p>
+</div>
+</div>
+<!-- Item 3 (Dress) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<!-- Placeholder for clothing image --><img src="https://i.ifh.cc/n7zqLg.png"alt="이지 스트레이 밴딩 슬랙스 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 1</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">이지 스트레이 밴딩 슬랙스</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+이서원 · 2024년 · 710.223 나101
+</p>
+</div>
+</div>
+<!-- Item 4 (Knit) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<!-- Placeholder for clothing image --><img src="https://i.ifh.cc/FdrdpB.png"alt="엘비라 목걸이 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 8</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">엘비라 목걸이</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+비비안 웨스트 우드 · 2024년 · 600.221 다34
+</p>
+</div>
+</div>
+<!-- Item 5 (NEW: Skirt) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/oQvwCt.png"alt="데님 와이드 팬츠 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 2</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">데님 와이드 팬츠</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+최은주 · 2024년 · 450.123 라11
+</p>
+</div>
+</div>
+<!-- Item 6 (NEW: Shoes) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/PKp6r3.png"alt="케이블 헨리넥 니트 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 4</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">케이블 헨리넥 니트</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+김민준 · 2025년 · 810.045 마20
+</p>
+</div>
+</div>
+<!-- Item 7 (NEW: Accessories) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/N6fxqL.png"alt="브러쉬드 롱 머플러 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 7</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">브러쉬드 롱 머플러</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+박소영 · 2023년 · 900.897 바77
+</p>
+</div>
+</div>
+<!-- Item 8 (NEW: T-Shirt) --><div class="group cursor-pointer">
+<div class="product-image relative overflow-hidden rounded-xl aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:bg-neutral-200">
+<img src="https://i.ifh.cc/yT7HTL.png"alt="시그니처 스웨이드 타스만 슬리퍼 이미지"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+<!-- 잔여 수량 오버레이 --><div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<p class="text-white text-lg font-bold">잔여 10</p>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h3 class="text-sm sm:text-base font-medium text-neutral-800 line-clamp-1">시그니처 스웨이드 타스만 슬리퍼</h3>
+<p class="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-relaxed">
+UGG · 2025년 · 150.332 사44
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Building Structure (NEWS Section replacement) - REDESIGNED --><section class="structure-background relative py-20 md:py-32 px-4 md:px-12">
+<!-- Background Overlay for contrast and transparency --><div class="absolute inset-0 bg-black/80"></div>
+<div class="relative max-w-7xl mx-auto"><!-- Expanded max-w to 7xl -->
+<h2 class="text-center text-xl sm:text-2xl font-light tracking-widest text-white mb-16">
+BUILDING STRUCTURE
+</h2>
+<!-- Structure Floor Entries --><!-- Floor 4F: The Record --><div class="py-16"><!-- Increased vertical padding --><div class="md:flex md:space-x-20 max-w-full mx-auto items-center"><!-- Max width full for wider layout, space increased --><!-- Left: Floor Details (Approx 67% width) --><div class="md:w-8/12"><!-- Re-Adjusted width: 8/12 (66.6%) --><div class="md:flex md:space-x-12">
+<!-- Floor Number & Subtitle --><div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0"><!-- Adjusted sub-section width --><div class="text-7xl font-extralight text-[#ff7200] leading-none">4F</div>
+<h3 class="text-xl font-extralight text-neutral-300 tracking-wider mt-1">The Record</h3>
+</div>
+<!-- Title and Description --><div class="md:w-3/4"><!-- Adjusted sub-section width -->
+<!-- Request 1: Title centered, margin bottom increased -->
+<h4 class="text-2xl font-light text-white mb-8 text-center">악세서리 컬렉션 & 포토 스튜디오</h4>
+<!-- Request 2: Line height increased -->
+<p class="font-extralight text-sm text-neutral-400 mb-8 text-center leading-relaxed">악세서리를 발견하고, 자신만의 스타일을 사진으로 기록하는 공간.<br>탐험의 결실을 맺어보세요!</p>
+<!-- Detailed Lists: 선 요소 제거 및 텍스트만 남김 --><div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-sm pt-2">
+<div class="text-center">
+<p class="text-neutral-200 font-light">모자, 선글라스, 주얼리 등</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">개인 화보를 남기는<br>포토 스튜디오</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Image Placeholder (Approx 33% width) --><div class="md:w-4/12 flex-shrink-0 mt-8 md:mt-0"><!-- Re-Adjusted width: 4/12 (33.3%) --><div class="bg-neutral-800 rounded-none aspect-[16/9] overflow-hidden">
+<img src="https://i.ifh.cc/O5FlwX.jpg"alt="4층 이미지"class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</div>
+<!-- Floor 3F: The Season --><div class="py-16 border-t border-neutral-700/50"><!-- Increased vertical padding --><div class="md:flex md:space-x-20 max-w-full mx-auto items-center"><!-- Max width full for wider layout, space increased --><!-- Left: Floor Details (Approx 67% width) --><div class="md:w-8/12"><!-- Re-Adjusted width: 8/12 (66.6%) --><div class="md:flex md:space-x-12">
+<!-- Floor Number & Subtitle --><div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0"><!-- Adjusted sub-section width --><div class="text-7xl font-extralight text-[#ff7200] leading-none">3F</div>
+<h3 class="text-xl font-extralight text-neutral-300 tracking-wider mt-1">The Season</h3>
+</div>
+<!-- Title and Description --><div class="md:w-3/4"><!-- Adjusted sub-section width -->
+<!-- Request 1: Title centered, margin bottom increased -->
+<h4 class="text-2xl font-light text-white mb-8 text-center">겨울 & 여름 컬렉션</h4>
+<!-- Request 2: Line height increased -->
+<p class="font-extralight text-sm text-neutral-400 mb-8 text-center leading-relaxed">계절별 의류를 분리하여 효율적인 순환과 관리가 이루어지는 곳.<br>날씨에 상관없이 계절을 탐색하세요!</p>
+<!-- Detailed Lists: 선 요소 제거 및 텍스트만 남김 --><div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-sm pt-2">
+<div class="text-center">
+<p class="text-neutral-200 font-light">겨울 (코트, 패딩, 니트)</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">여름 (린넨, 수영복, 반팔)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Image Placeholder (Approx 33% width) --><div class="md:w-4/12 flex-shrink-0 mt-8 md:mt-0"><!-- Re-Adjusted width: 4/12 (33.3%) --><div class="bg-neutral-800 rounded-none aspect-[16/9] overflow-hidden">
+<img src="https://i.ifh.cc/aTAOC0.jpg"alt="3층 이미지"class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</div>
+<!-- Floor 2F: The Diverse --><div class="py-16 border-t border-neutral-700/50"><!-- Increased vertical padding --><div class="md:flex md:space-x-20 max-w-full mx-auto items-center"><!-- Max width full for wider layout, space increased --><!-- Left: Floor Details (Approx 67% width) --><div class="md:w-8/12"><!-- Re-Adjusted width: 8/12 (66.6%) --><div class="md:flex md:space-x-12">
+<!-- Floor Number & Subtitle --><div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0"><!-- Adjusted sub-section width --><div class="text-7xl font-extralight text-[#ff7200] leading-none">2F</div>
+<h3 class="text-xl font-extralight text-neutral-300 tracking-wider mt-1">The Diverse</h3>
+</div>
+<!-- Title and Description --><div class="md:w-3/4"><!-- Adjusted sub-section width -->
+<!-- Request 1: Title centered, margin bottom increased -->
+<h4 class="text-2xl font-light text-white mb-8 text-center">일반 & 연예인 컬렉션</h4>
+<!-- Request 2: Line height increased -->
+<p class="font-extralight text-sm text-neutral-400 mb-8 text-center leading-relaxed">일상복부터 희소성이 높은 셀럽 착용 의류까지,<br>탐험의 재미를 느껴보세요!</p>
+<!-- Detailed Lists: 선 요소 제거 및 텍스트만 남김 --><div class="grid grid-cols-1 sm:grid-cols-3 gap-y-2 gap-x-8 text-sm pt-2">
+<div class="text-center">
+<p class="text-neutral-200 font-light">일반 컬렉션 의류</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">신발 컬렉션 서가</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">연예인 착용 의류</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Image Placeholder (Approx 33% width) --><div class="md:w-4/12 flex-shrink-0 mt-8 md:mt-0"><!-- Re-Adjusted width: 4/12 (33.3%) --><div class="bg-neutral-800 rounded-none aspect-[16/9] overflow-hidden">
+<img src="https://i.ifh.cc/gvJZzW.jpg"alt="2층 이미지"class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</div>
+<!-- Floor 1F: The New --><div class="py-16 border-t border-neutral-700/50"><!-- Increased vertical padding --><div class="md:flex md:space-x-20 max-w-full mx-auto items-center"><!-- Max width full for wider layout, space increased --><!-- Left: Floor Details (Approx 67% width) --><div class="md:w-8/12"><!-- Re-Adjusted width: 8/12 (66.6%) --><div class="md:flex md:space-x-12">
+<!-- Floor Number & Subtitle --><div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0"><!-- Adjusted sub-section width -->
+<div class="text-7xl font-extralight text-[#ff7200] leading-none">1F</div>
+<h3 class="text-xl font-extralight text-neutral-300 tracking-wider mt-1">The New</h3>
+</div>
+<!-- Title and Description --><div class="md:w-3/4"><!-- Adjusted sub-section width -->
+<!-- Request 1: Title centered, margin bottom increased -->
+<h4 class="text-2xl font-light text-white mb-8 text-center">신간 컬렉션 & 패션 은행</h4>
+<!-- Request 2: Line height increased -->
+<p class="font-extralight text-sm text-neutral-400 mb-8 text-center leading-relaxed">신진 디자이너의 신상을 가장 먼저 만나보는 신간 컬렉션,<br>세상에 공개되지 않은 의류를 만나볼 기회입니다!</p>
+<!-- Detailed Lists: 선 요소 제거 및 텍스트만 남김 --><div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-sm pt-2">
+<div class="text-center">
+<p class="text-neutral-200 font-light">신상 의류</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">자동 대출/반납 시스템</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Image Placeholder (Approx 33% width) --><div class="md:w-4/12 flex-shrink-0 mt-8 md:mt-0"><!-- Re-Adjusted width: 4/12 (33.3%) --><div class="bg-neutral-800 rounded-none aspect-[16/9] overflow-hidden">
+<img src="https://i.ifh.cc/O9Qf0K.jpg"alt="1층 이미지"class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</div>
+<!-- Floor B1: The Loop --><div class="py-16 border-t border-neutral-700/50"><!-- Increased vertical padding --><div class="md:flex md:space-x-20 max-w-full mx-auto items-center"><!-- Max width full for wider layout, space increased --><!-- Left: Floor Details (Approx 67% width) --><div class="md:w-8/12"><!-- Re-Adjusted width: 8/12 (66.6%) --><div class="md:flex md:space-x-12">
+<!-- Floor Number & Subtitle --><div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0"><!-- Adjusted sub-section width -->
+<div class="text-7xl font-extralight text-[#ff7200] leading-none">B1</div>
+<h3 class="text-xl font-extralight text-neutral-300 tracking-wider mt-1">The Loop</h3>
+</div>
+<!-- Title and Description --><div class="md:w-3/4"><!-- Adjusted sub-section width -->
+<!-- Request 1: Title centered, margin bottom increased -->
+<h4 class="text-2xl font-light text-white mb-8 text-center">의류 순환 및 보존 서고</h4>
+<!-- Request 2: Line height increased -->
+<p class="font-extralight text-sm text-neutral-400 mb-8 text-center leading-relaxed">탐험을 가능하게 하는 숨겨진 곳.<br>이곳에서 의류의 청결과 보존을 책임집니다!</p>
+<!-- Detailed Lists: 선 요소 제거 및 텍스트만 남김 --><div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-sm pt-2">
+<div class="text-center">
+<p class="text-neutral-200 font-light">세탁/드라이 클리닝</p>
+</div>
+<div class="text-center">
+<p class="text-neutral-200 font-light">전문 수선/리폼 스테이션<br>대규모 의류 보존 서고</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Image Placeholder (Approx 33% width) --><div class="md:w-4/12 flex-shrink-0 mt-8 md:mt-0"><!-- Re-Adjusted width: 4/12 (33.3%) --><div class="bg-neutral-800 rounded-none aspect-[16/9] overflow-hidden">
+<img src="https://i.ifh.cc/Q1v3Q5.jpg"alt="지하 1층 이미지"class="w-full h-full object-cover">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div><!-- /#homeView -->
+<!-- 2. 검색 결과 뷰 (기본 숨김) -->
+<div id="searchView"class="view-transition hidden-view">
+<section class="py-20 md:py-24 px-4 md:px-12 bg-[#f7f7f7] text-[#0d0d0d]"><!-- Light Background and Dark Text restored -->
+<div class="max-w-7xl mx-auto">
+<!-- 검색 결과 제목: 스크립트에서 내용이 변경됨 -->
+<h1 id="searchResultTitle"class="text-center text-4xl sm:text-5xl font-light tracking-widest text-neutral-800 mb-16">
+SEARCH RESULTS
+</h1>
+<!-- Result Grid (3 columns, 12 items) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+<!-- Result Item 1 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Red+Hat"alt="플로피 레드 모자"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">울 플로피 햇 (와인색)</h3>
+<p class="text-xs text-neutral-500 mt-1">김나현 · 2024년 · 900.551 마11</p>
+</div>
+</div>
+<!-- Result Item 2 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Leather+Bag"alt="가죽 토트백"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">고급 가죽 토트백</h3>
+<p class="text-xs text-neutral-500 mt-1">박서인 · 2023년 · 900.672 바22</p>
+</div>
+</div>
+<!-- Result Item 3 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Scarf"alt="그레이 머플러"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">캐시미어 블렌드 머플러 (그레이)</h3>
+<p class="text-xs text-neutral-500 mt-1">이서원 · 2025년 · 900.103 사33</p>
+</div>
+</div>
+<!-- Result Item 4 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Dress"alt="썸머 드레스"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">에어 코튼 썸머 롱 드레스</h3>
+<p class="text-xs text-neutral-500 mt-1">이지민 · 2024년 · 710.224 자44</p>
+</div>
+</div>
+<!-- Result Item 5 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Jacket"alt="데님 재킷"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">오버핏 데미지 워싱 데님 재킷</h3>
+<p class="text-xs text-neutral-500 mt-1">최은주 · 2023년 · 610.111 차55</p>
+</div>
+</div>
+<!-- Result Item 6 -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Tshirt"alt="그래픽 티셔츠"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">유니크 그래픽 반팔 티셔츠 (블랙)</h3>
+<p class="text-xs text-neutral-500 mt-1">강지원 · 2025년 · 150.332 카66</p>
+</div>
+</div>
+<!-- Result Item 7 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Sneakers"alt="빈티지 스웨이드 스니커즈"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">빈티지 스웨이드 스니커즈 (베이지)</h3>
+<p class="text-xs text-neutral-500 mt-1">최민정 · 2023년 · 500.222 아77</p>
+</div>
+</div>
+<!-- Result Item 8 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Beanie"alt="캐시미어 혼방 비니"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">캐시미어 혼방 비니 (블랙)</h3>
+<p class="text-xs text-neutral-500 mt-1">박지훈 · 2025년 · 900.510 자88</p>
+</div>
+</div>
+<!-- Result Item 9 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Skirt"alt="플리츠 롱 스커트"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">플리츠 롱 스커트 (네이비)</h3>
+<p class="text-xs text-neutral-500 mt-1">김수현 · 2024년 · 710.400 차99</p>
+</div>
+</div>
+<!-- Result Item 10 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Blazer"alt="클래식 울 블레이저"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">클래식 울 블레이저 (체크)</h3>
+<p class="text-xs text-neutral-500 mt-1">이준호 · 2023년 · 610.150 카10</p>
+</div>
+</div>
+<!-- Result Item 11 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Wallet"alt="미니멀 가죽 반지갑"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">미니멀 가죽 반지갑</h3>
+<p class="text-xs text-neutral-500 mt-1">정다인 · 2025년 · 900.700 타11</p>
+</div>
+</div>
+<!-- Result Item 12 (추가 항목) -->
+<div class="group product-item cursor-pointer text-center">
+<div class="overflow-hidden bg-neutral-100 rounded-lg aspect-square flex items-center justify-center p-8 transition duration-300 group-hover:shadow-lg">
+<img src="https://placehold.co/400x500/f7f7f7/333333?text=Sunglasses"alt="틴티드 오버사이즈 선글라스"class="w-full h-full object-contain transition duration-500 group-hover:scale-105">
+</div>
+<div class="mt-4">
+<h3 class="product-title text-base font-medium text-neutral-800 line-clamp-1 transition duration-200">틴티드 오버사이즈 선글라스</h3>
+<p class="text-xs text-neutral-500 mt-1">윤지성 · 2024년 · 900.600 파12</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div><!-- /#searchView -->
+<!-- Footer --><footer id="mainFooter"class="py-10 text-center text-neutral-500 text-xs tracking-wider border-t border-neutral-800 bg-[#0d0d0d] transition-colors duration-300">
+&copy; 2025 Dongdaemun Fashion Library. All rights reserved. | Product by Bumjin
+</footer>
+<script>
+window.onload =function(){
+// 1. 요소 가져오기
+constsearchInput =document.getElementById('searchInput');
+constsearchButton =document.getElementById('search-button');
+consthomeLink =document.getElementById('homeLink');
+consthomeView =document.getElementById('homeView');
+constsearchView =document.getElementById('searchView');
+constresultTitle =document.getElementById('searchResultTitle');
+constmainHeader =document.getElementById('mainHeader');
+constmainFooter =document.getElementById('mainFooter');
+constbody =document.body;
+// 로고 텍스트 요소 ID 추가
+constlogoDdm =document.getElementById('logoDdm');
+constlogoFashion =document.getElementById('logoFashion');
+constlogoLibrary =document.getElementById('logoLibrary');
+// 2. 뷰 전환 함수
+functionshowView(viewId,query =null){
+// 맨 위로 스크롤
+window.scrollTo(0,0);
+if (viewId ==='search'){
+// 홈 뷰 아웃
+homeView.classList.remove('visible-view');
+homeView.classList.add('hidden-view');
+// 검색 뷰 인
+setTimeout(()=>{// 뷰가 완전히 사라진 후 스타일 변경 및 검색 뷰 표시
+body.style.backgroundColor ='#f7f7f7';// Light mode background
+mainFooter.classList.remove('bg-[#0d0d0d]','border-neutral-800');
+mainFooter.classList.add('bg-white','border-neutral-200');
+// 헤더 스타일 전환: 다크 -> 라이트 (Sticky)
+mainHeader.classList.remove('header-dark','text-white','fixed','bg-transparent');
+mainHeader.classList.add('header-light','text-black','sticky');
+// === 로고 텍스트 색상 변경 (검색 뷰 - 라이트 테마) ===
+// FASHION: text-neutral-400 (요청 사항 반영)
+logoFashion.classList.remove('text-white');
+logoFashion.classList.add('text-neutral-400');
+// DONGDAEMUN & LIBRARY: text-neutral-800 (밝은 배경에서 대비 효과를 위해)
+logoDdm.classList.remove('text-neutral-400');
+logoDdm.classList.add('text-neutral-800');
+logoLibrary.classList.remove('text-neutral-400');
+logoLibrary.classList.add('text-neutral-800');
+searchView.classList.remove('hidden-view');
+searchView.classList.add('visible-view');
+if (query &&query.length >0){
+resultTitle.textContent =`'${query}' 검색 결과`;
+}else {
+resultTitle.textContent ='전체 컬렉션';
+}
+},500);// CSS transition 시간과 맞춤 (0.5초)
+}else {// 'home' view
+// 검색 뷰 아웃
+searchView.classList.remove('visible-view');
+searchView.classList.add('hidden-view');
+// 홈 뷰 인
+setTimeout(()=>{// 뷰가 완전히 사라진 후 스타일 변경 및 홈 뷰 표시
+body.style.backgroundColor ='#0d0d0d';// Dark mode background
+mainFooter.classList.remove('bg-white','border-neutral-200');
+mainFooter.classList.add('bg-[#0d0d0d]','border-neutral-800');
+// 헤더 스타일 전환: 라이트 -> 다크 (Fixed, Transparent)
+mainHeader.classList.remove('header-light','text-black','sticky');
+mainHeader.classList.add('header-dark','text-white','fixed','bg-transparent');
+// === 로고 텍스트 색상 복구 (홈 뷰 - 다크 테마) ===
+// FASHION: text-white
+logoFashion.classList.remove('text-neutral-400');
+logoFashion.classList.add('text-white');
+// DONGDAEMUN & LIBRARY: text-neutral-400
+logoDdm.classList.remove('text-neutral-800');
+logoDdm.classList.add('text-neutral-400');
+logoLibrary.classList.remove('text-neutral-800');
+logoLibrary.classList.add('text-neutral-400');
+homeView.classList.remove('hidden-view');
+homeView.classList.add('visible-view');
+},500);// CSS transition 시간과 맞춤 (0.5초)
+}
+}
+// 3. 검색 처리 함수
+functionhandleSearch(e){
+if (e &&e.preventDefault){
+e.preventDefault();
+}
+constquery =searchInput.value.trim();
+showView('search',query);
+}
+// 4. 이벤트 리스너 재부착
+if (searchButton){
+searchButton.addEventListener('click',handleSearch);
+}
+if (searchInput){
+searchInput.addEventListener('keypress',function (e){
+if (e.key ==='Enter'){
+handleSearch(e);
+}
+});
+}
+if (homeLink){
+homeLink.addEventListener('click',function(e){
+e.preventDefault();// 기본 링크 이동 방지
+showView('home');
+});
+}
+};
+</script>
+</body>
+</html>
